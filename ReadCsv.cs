@@ -1,26 +1,21 @@
 using System;
+using System.Data;
 using System.IO;
 using System.Threading.Tasks;
+using GenericParsing;
+using ClosedXML.Excel;
 
-class ReadCsv
+public class ReadCsv
 {
-    static async Task Main()
+    public DataTable ReadCsvAndConvertToDataTable(string filename)
     {
-        await ReadAndDisplayFilesAsync();
-    }
+        var adapter = new GenericParsing.GenericParserAdapter(filename);
+        var batchSummaryConverter = new BatchSummaryConverter();
 
-    static async Task ReadAndDisplayFilesAsync()
-    {
-        String filename = (@"C:\Users\dabos\Downloads\Batch Reports\");
-        String filename2 = ("*.csv");
-        String fullfilename = filename + filename2;
-        Char[] buffer;
-        
-        using (var sr = new StreamReader(fullfilename)) {
-            buffer = new Char[(int)sr.BaseStream.Length];
-            await sr.ReadAsync(buffer, 0, (int)sr.BaseStream.Length);
-        }
+        DataTable originalDataTable = adapter.GetDataTable();
 
-        Console.WriteLine(new String(buffer));
+        var newDataTable = batchSummaryConverter.Convert(originalDataTable);        
+
+        return newDataTable;
     }
 }
