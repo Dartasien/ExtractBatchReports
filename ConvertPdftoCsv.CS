@@ -1,3 +1,4 @@
+using System.IO;
 using Bytescout.PDFExtractor;
 
 public class ConvertPdftoCsv
@@ -12,15 +13,15 @@ public class ConvertPdftoCsv
     }
     public void OpenFiles()
     {
-        // string[] files = Directory.GetFiles(@"C:\Users\dabos\Downloads\Batch Reports", "*.pdf");
-        // // Array of events to wait
+         string[] files = Directory.GetFiles(@"C:\Users\dabos\Downloads\Batch Reports", "*.pdf");
+         // Array of events to wait
 
 
-        // for (int i = 0; i < files.Length; i++)
-        // {
-        //     convert(files[i]);
-        // }
-        Convert("20181204B0C_BatchSummary.pdf");
+         for (int i = 0; i < files.Length; i++)
+         {
+             Convert(files[i]);
+         }
+        //Convert("20181204B0C_BatchSummary.pdf");
     }
 
     private void Convert(string filename)
